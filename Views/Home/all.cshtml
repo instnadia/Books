@@ -1,0 +1,15 @@
+@model List<Book>
+
+<h1 class="display-4 mt-5" style="color: #368f8b">All books</h1>
+
+@foreach (var book in Model)
+{
+    <div class="card mt-5 mb-2">
+        <h5 class="card-header">By @book.author.name</h5>
+        <div class="card-body">
+            <h5 class="card-title">Title: @book.title</h5>
+            <p class="card-text">Description: @book.desc</p>
+            <a asp-action="edit" asp-controller="Home" asp-route-id="@book.BookId" class="btn btn-primary">Edit</a>
+        </div>
+    </div>
+}

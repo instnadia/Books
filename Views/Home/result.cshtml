@@ -1,0 +1,52 @@
+@model Together
+<div class="mt-5">
+    <p>The quary "@ViewBag.quary" was searched:</p>
+    @try
+    {
+        @if(Model.author!=null){
+            <div class="mt-5">
+                <p>Author:</p>
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">@Model.author.name</h3>
+                        <p class="card-text">Books writted by author:</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                    @foreach (var item in @Model.author.BooksWritten)
+                    {
+                        <li class="list-group-item">- @item.title</li>
+                    }
+                    </ul>
+                </div>
+            </div>
+        }
+        @if(Model.book!=null){
+            <div class="mt-5">
+                <p>Book:</p>
+                <div class="card mb-2">
+                    <h5 class="card-header">By @Model.book.author.name</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Title: @Model.book.title</h5>
+                        <p class="card-text">Description: @Model.book.desc</p>
+                        <a asp-action="edit" asp-controller="Home" asp-route-id="@Model.book.BookId" class="btn btn-primary">Edit</a>
+                    </div>
+                </div>
+            </div>
+        }else if(Model.book==null && Model.author==null){
+            <p>No results</p>
+        }
+    }
+    catch (System.Exception)
+    {
+        @if(Model.author==null && Model.book==null){
+            <p>No queries match</p>
+        }
+        else if(Model.book==null){
+            <p>No books were found</p>
+        }
+        else if(Model.author==null){
+            <p>No authors were found</p>
+        }
+    }
+</div>
+
